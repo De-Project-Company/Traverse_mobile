@@ -1,11 +1,26 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import WelcomeScreen from "../screens/auth/welcome";
+import Onboarding from "../screens/onboarding/onboarding";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
-function RootStackNavigator() {
-	<Stack.Navigator>
-		{/* <Stack.Screen name="home" component={}/> */}
-	</Stack.Navigator>;
+export default function RootStackNavigator() {
+	return (
+		<Stack.Navigator initialRouteName="onboarding">
+			<Stack.Screen
+				options={{
+					headerShown: false,
+				}}
+				name="onboarding"
+				component={Onboarding}
+			/>
+			<Stack.Screen
+				options={{
+					headerShown: false,
+				}}
+				name="welcome"
+				component={WelcomeScreen}
+			/>
+		</Stack.Navigator>
+	);
 }
-
-export default RootStackNavigator;
