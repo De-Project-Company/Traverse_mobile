@@ -19,14 +19,21 @@ export default function Onboarding({ navigation }) {
 		{
 			id: 1,
 			url: require("../../assets/pc1.png"),
-
+			title: "Welcome to Transverse",
 			description:
 				"Transverse is an app that lets you track your Projects in real time alongside other team members and clients.",
 		},
 		{
 			id: 2,
 			url: require("../../assets/pc2.png"),
-
+			title: "Create A Task",
+			description:
+				"Manage your projects, update clients live as you progress in your tasks, create new tasks, and observe old tasks.",
+		},
+		{
+			id: 3,
+			url: require("../../assets/pc2.png"),
+			title: "Start A Fight",
 			description:
 				"Manage your projects, update clients live as you progress in your tasks, create new tasks, and observe old tasks.",
 		},
@@ -93,7 +100,7 @@ export default function Onboarding({ navigation }) {
 							elevation={10}
 							height="49%">
 							<Text style={{ fontSize: 25, fontFamily: "Poppins-Regular" }}>
-								Welcome To Transverse
+								{item.title}
 							</Text>
 							<Text style={{ fontSize: 14, fontFamily: "Poppins-Regular" }}>
 								{item.description}

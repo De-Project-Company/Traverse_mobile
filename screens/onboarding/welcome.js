@@ -11,7 +11,7 @@ import { useFonts } from "expo-font";
 import { useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
 	const image = useImage(require("../../assets/splash.png"));
 	const SCREEN_WIDTH = useWindowDimensions().width;
 	const SCREEN_HEIGHT = useWindowDimensions().height;
@@ -57,7 +57,9 @@ export default function WelcomeScreen() {
 				}}>
 				Welcome To Transverse
 			</Text>
-			<Pressable style={styles.signUpButton}>
+			<Pressable
+				onPress={() => navigation.navigate("signup")}
+				style={styles.signUpButton}>
 				<Text
 					style={{
 						color: "white",
@@ -68,7 +70,7 @@ export default function WelcomeScreen() {
 					Signup Now
 				</Text>
 			</Pressable>
-			<Pressable>
+			<Pressable onPress={() => navigation.navigate("login")}>
 				<Text style={{ fontFamily: "Poppins-Regular" }}>
 					Already have an account?{" "}
 					<Text style={{ color: "#1B0354" }}>Signin</Text>
