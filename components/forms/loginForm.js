@@ -1,5 +1,51 @@
-import { StyleSheet, View, Text, TextInput, Pressable } from "react-native";
+import { useState } from "react";
+import {
+	StyleSheet,
+	View,
+	Text,
+	TextInput,
+	Pressable,
+	ActivityIndicator,
+	ToastAndroid,
+} from "react-native";
+import { API_URL } from "../../constants/index";
 export default function LoginForm({ navigation }) {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [isSubmiting, setIsSubmiting] = useState(false);
+	const handleSubmit = async () => {
+		setIsSubmiting(true);
+		try {
+			const response = await fetch(`${API_URL}/api/v1/auth/signin`, {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify({
+					password,
+					email,
+				}),
+			});
+			if (response.ok) {
+				const { message } = await response.json();
+				console.log(message);
+
+				navigation.navigate("home");
+				setEmail("");
+				setPassword("");
+				setIsSubmiting(false);
+			}
+			if (!response.ok) {
+				const { message } = await response.json();
+				ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+				console.log(message);
+				setIsSubmiting(false);
+			}
+		} catch (error) {
+			console.log(error);
+			setIsSubmiting(false);
+		}
+	};
 	return (
 		<View style={styles.container}>
 			<View>
@@ -7,6 +53,8 @@ export default function LoginForm({ navigation }) {
 					Email Address
 				</Text>
 				<TextInput
+					value={email}
+					onChangeText={(val) => setEmail(val)}
 					keyboardType="email-address"
 					style={styles.input}
 					placeholder="john@doe.com"
@@ -17,16 +65,22 @@ export default function LoginForm({ navigation }) {
 					Password
 				</Text>
 				<TextInput
+					value={password}
+					onChangeText={(val) => setPassword(val)}
 					secureTextEntry
 					style={styles.input}
 					placeholder="***********"
 				/>
 			</View>
 
-			<Pressable style={styles.signIn}>
-				<Text style={{ color: "white", fontFamily: "Poppins-Regular" }}>
-					SignIn
-				</Text>
+			<Pressable onPress={handleSubmit} style={styles.signIn}>
+				{isSubmiting ? (
+					<ActivityIndicator color={"white"} />
+				) : (
+					<Text style={{ color: "white", fontFamily: "Poppins-Regular" }}>
+						SignIn
+					</Text>
+				)}
 			</Pressable>
 			<Pressable onPress={() => navigation.navigate("forgot")}>
 				<Text style={{ fontFamily: "Poppins-Regular", color: "#1B0354" }}>

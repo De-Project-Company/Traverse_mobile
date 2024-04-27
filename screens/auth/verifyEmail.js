@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OtpForm from "../../components/forms/otpForm";
 
-export default function VerifyEmail() {
+export default function VerifyEmail({ navigation }) {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Text
@@ -21,7 +21,7 @@ export default function VerifyEmail() {
 				}}>
 				Begin your first step in productivity
 			</Text>
-			<OtpForm />
+			<OtpForm navigation={navigation} />
 		</SafeAreaView>
 	);
 }
